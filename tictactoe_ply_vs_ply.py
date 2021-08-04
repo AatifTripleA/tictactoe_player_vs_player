@@ -142,7 +142,7 @@ print('Welcome to Tic Tac Toe!')
 while True:
     # Reset the board
     theBoard = [' '] * 10
-    playerLetter, computerLetter = inputPlayerLetter()
+    playerLetter, player2Letter = inputPlayerLetter()
     turn = whoGoesFirst()
     print('The ' + turn + ' will go first.')
     gameIsPlaying = True
@@ -167,13 +167,16 @@ while True:
                     turn = 'computer'
 
         else:
-            # Computer's turn.
-            move = getComputerMove(theBoard, computerLetter)
-            makeMove(theBoard, computerLetter, move)
+            # Player2's turn.
+            # move = getComputerMove(theBoard, computerLetter)
+            # makeMove(theBoard, computerLetter, move)
+            drawBoard(theBoard)
+            move = getPlayerMove(theBoard)
+            makeMove(theBoard, player2Letter, move)
 
-            if isWinner(theBoard, computerLetter):
+            if isWinner(theBoard, player2Letter):
                 drawBoard(theBoard)
-                print('The computer has beaten you! You lose.')
+                print('Player2 has beaten you! You lose.')
                 gameIsPlaying = False
             else:
                 if isBoardFull(theBoard):
