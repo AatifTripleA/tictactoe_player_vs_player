@@ -2,9 +2,11 @@
 
 ## Key Tasks
 
-- [ ] Make tictactoe_ply_vs_ply.py to play with two players against each other
+- [X] Make tictactoe_ply_vs_ply.py to play with two players against each other
 
-- [ ] Create TicTacToe class and add methods
+- [X] Create TicTacToe class and add methods
 
 - [ ] Make any other user friendly improvements
+
+- [ ] Add class documentation
 
