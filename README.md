@@ -6,7 +6,7 @@
 
 - [X] Create TicTacToe class and add methods
 
-- [ ] Make any other user friendly improvements
+- [X] Make any other user friendly improvements
 
 - [ ] Add class documentation
 
