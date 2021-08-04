@@ -74,26 +74,14 @@ class TicTacToe:
 
 
 def inputPlayerLetter():
-    # Lets the player type which letter they want to be.
-    # Returns a list with the player's letter as the first item, and the computer's letter as the second.
-    letter = ''
-    while not (letter == 'X' or letter == 'O'):
-        print('Do you want to be X or O?')
-        letter = input().upper()
-
-    # the first element in the tuple is the player's letter, the second is the computer's letter.
-    if letter == 'X':
-        return ['X', 'O']
-    else:
-        return ['O', 'X']
-
+    return ['X', 'O']
 
 def whoGoesFirst():
     # Randomly choose the player who goes first.
     if random.randint(0, 1) == 0:
-        return 'player2'
+        return p2Name
     else:
-        return 'player1'
+        return p1Name
 
 
 def playAgain():
@@ -103,19 +91,33 @@ def playAgain():
 
 
 print('Welcome to Tic Tac Toe! This is a two player game!')
+instructions = input('Would you like to view the game\'s instructions?')
+if instructions.startswith('y'):
+    print('''The goal of Tic Tac Toe is to make an uninterrupted line from your chosen letter (x or o). 
+    This line can be vertical, horizontal, or diagonal.\nDoing that wins you the round. 
+    If you win 5 rounds before your partner, you win the game.\nA tie is possible in a round, but not in the overall game.\n
+    The board is set up like a keypad. The bottom row counts 1-3 from left to right, middle row 4-6, and top row 7-9.''')
 
-while True:
+player_one_wins = 0
+player_two_wins = 0
+
+p1Name = input('Who will play x?')
+p2Name = input('Who will play o?')
+
+while player_one_wins < 5 and player_two_wins < 5:
     # Reset the board
     theBoard = [' '] * 10
     tictactoe = TicTacToe(theBoard)
+    print(p1Name + ' has won ' + str(player_one_wins) + ' rounds.')
+    print(p2Name + ' has won ' + str(player_two_wins) + ' rounds.')
 
     player1Letter, player2Letter = inputPlayerLetter()
     turn = whoGoesFirst()
-    print('The ' + turn + ' will go first.')
+    print(str(turn) + ' will go first.')
     gameIsPlaying = True
 
     while gameIsPlaying:
-        if turn == 'player1':
+        if turn == p1Name:
             # Player's turn.
             tictactoe.drawBoard()
             move = tictactoe.getPlayerMove(1)
@@ -123,7 +125,8 @@ while True:
 
             if tictactoe.isWinner(player1Letter):
                 tictactoe.drawBoard()
-                print('Hooray! Player1 has won the game!')
+                print('Hooray! ' + p1Name +'has won the game!')
+                player_one_wins += 1
                 gameIsPlaying = False
             else:
                 if tictactoe.isBoardFull():
@@ -131,7 +134,7 @@ while True:
                     print('The game is a tie!')
                     break
                 else:
-                    turn = 'player2'
+                    turn = p2Name
 
         else:
             # Player2's turn.
@@ -141,7 +144,8 @@ while True:
 
             if tictactoe.isWinner(player2Letter):
                 tictactoe.drawBoard()
-                print('Hooray! Player2 has won the game!')
+                print('Hooray! ' + p2Name +' has won the game!')
+                player_two_wins += 1
                 gameIsPlaying = False
             else:
                 if tictactoe.isBoardFull():
@@ -149,7 +153,12 @@ while True:
                     print('The game is a tie!')
                     break
                 else:
-                    turn = 'player1'
+                    turn = p1Name
 
     if not playAgain():
         break
+
+if player_one_wins > player_two_wins and player_one_wins >= 5:
+    print(p1Name + ' has won!')
+elif player_one_wins < player_two_wins and player_two_wins >= 5:
+    print(p2Name + ' has won!')
